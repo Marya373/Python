@@ -6,15 +6,17 @@
 
 print('Введите количество монет: ')
 n = int(input())
-count_gerb = 0
 count_reshka = 0
+count_gerb = 0
 for i in range(n):
     x = int(input())
     if x == 0:
         count_gerb += 1
     else:
         count_reshka += 1
-if count_gerb > count_reshka:
+if count_gerb < count_reshka:
     print(count_gerb)
 else:
     print(count_reshka) 
+    
+    
