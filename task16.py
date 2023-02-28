@@ -10,4 +10,4 @@ inc = 0
 for i in lst:
     if i == n:
         inc += 1
-print(inc)
+print (" {:4d}".format(inc))
