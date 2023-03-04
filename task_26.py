@@ -1,11 +1,11 @@
 '''Задача 26:  Напишите программу, которая на вход принимает два числа A и B, 
 и возводит число А в целую неотрицательную степень B с помощью рекурсии.'''
 
-def power(base, exp):
-    if (exp == 1):
-        return (base)
-    if (exp != 1):
-        return (base * power(base, exp - 1))
-base = int(input("Введите число: "))
-exp = int(input("Введите его степень: "))
-print("Результат возведения в степень равен:", power(base, exp))
+def power(a, b):
+    if (b == 1):
+        return (a)
+    if (b != 1):
+        return (a * power(a, b - 1))
+a = int(input("Введите число: "))
+b = int(input("Введите его степень: "))
+print("Результат возведения в степень равен:", power(a, b))
