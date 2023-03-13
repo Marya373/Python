@@ -8,10 +8,6 @@ house=дом car=машина men=человек tree=дерево
 Sample Output:
 ((house, дом), (car, машина), (men, человек), (tree, дерево))'''
 
-list1 = ['house=дом', 'car=машина', 'men=человек', 'tree=дерево']
-
-#convert list into tuple
-tuple1 = tuple(list1)
-
-print(tuple1)
-print(type(tuple1))
+string = input ('введите строку: ')
+result = tuple(map(lambda x: tuple(x.split(sep='=')), string.split()))
+print(result)
