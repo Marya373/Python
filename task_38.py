@@ -21,13 +21,13 @@ def main():
     FILENAME = '/Users/maryafaivisovich/Desktop/Python/Python_практика/Python/Python-2/data.txt'
     while True:
         os.system('clear')
-        print('ВЫ ЗАПУСТИЛИ ТЕЛЕФОННЫЙ СПРАВОЧНИК \n'
-              'Введите "1" для выведения всех записей \n'
-              'Введите "2" для добавления нового контакта \n'
-              'Введите "3" для поиска информации по контакту \n'
-              'Введите "4" для изменения информации по контакту \n'
-              'Введите "5" для удаления информации по контакту \n'
-              'Введите "0" для выхода')
+        print('ТЕЛЕФОННЫЙ СПРАВОЧНИК \n'
+              ' "1" для выведения всех записей \n'
+              ' "2" для добавления нового контакта \n'
+              ' "3" для поиска информации по контакту \n'
+              ' "4" для изменения информации по контакту \n'
+              ' "5" для удаления информации по контакту \n'
+              ' "0" для выхода')
         try:
             mode = int(input('Выберите режим: '))
             if mode == 1:
@@ -46,10 +46,10 @@ def main():
                 delete_data(FILENAME)
                 sleep(2)
             elif mode == 0:
-                print('ДО СВИДАНИЯ!!!')
+                print('Заново')
                 break
         except ValueError:
-            print('Выбран некорректный пункт меню')
+            print('Такого пункта нет!')
             sleep(1)
 
 
@@ -61,7 +61,7 @@ def show_data(FILENAME):
         with open(FILENAME, 'r', encoding='utf-8') as file:
             print(file.read())
     except FileNotFoundError:
-        print('Файл справочника не существует')
+        print('Файл не найден')
 
 
 def new_data(FILENAME):
@@ -69,38 +69,38 @@ def new_data(FILENAME):
         fio = input('Введите ФИО: ')
         phone = input('Введите телефон: ')
         file.write(f'{fio} | {phone}\n')
-        print('Контакт успешно добавлен в справочник')
+        print('Контакт добавлен')
 
 
 def rewrited(strings, data, FILENAME):
     fio = input('Введите изменения в ФИО: ')
-    phone = input('Введите измененный телефон: ')
+    phone = input('Введите изменения в телефон: ')
     with open(FILENAME, 'w', encoding='utf-8') as f2:
         [f2.write(f'{fio} | {phone}\n') if line == strings else f2.write(
             f'{data[line]}\n') for line in range(len(data)-1)]
-        print('Данные успешно изменены')
+        print('Данные изменены')
 
 
 def deleted(strings, data, FILENAME):
     with open(FILENAME, 'w', encoding='utf-8') as f2:
         [f2.write(f'{data[line]}\n') if line !=
          strings else '' for line in range(len(data)-1)]
-        print('Данные успешно удалены')
+        print('Данные удалены')
 
 
 def search_data(FILENAME):
     with open(FILENAME, 'r', encoding='utf-8') as f1:
-        search = input('Введите ФИО или номер телефона для выбора: ')
+        search = input('Введите ФИО или номер телефона для поиска: ')
         text = f1.read().split('\n')
         result = [(text.index(book), book)
                   for book in text if search.lower() in book.lower()]
         if len(result) >= 1:
-            print('Найдены записи: ')
+            print('Найдено: ')
             [print(f'{result.index(book)+1}) {str(book[1])}')
              for book in result]
             return ([line[0] for line in result], text)
         else:
-            print('Значение в справочнике не найдено')
+            print('Не найдено')
             return ([], text)
 
 
@@ -110,11 +110,11 @@ def edit_data(FILENAME):
         rewrited(data[0][0], data[1], FILENAME)
     elif len(data[0]) > 1:
         change = int(
-            input('Введите порядковый номер желаемой для изменения записи: '))
+            input('Номер желаемой для изменения записи: '))
         while change not in [i for i in range(1, len(data[0])+1)]:
-            print('Введеный номер отсутствует в списке вариантов')
+            print('Номер отсутствует')
             change = int(
-                input('Введите порядковый номер желаемой для изменения записи: '))
+                input('Номер желаемой для изменения записи: '))
         rewrited(int(data[0][change-1]), data[1], FILENAME)
 
 
@@ -124,11 +124,11 @@ def delete_data(FILENAME):
         deleted(data[0][0], data[1], FILENAME)
     elif len(data[0]) > 1:
         change = int(
-            input('Введите порядковый номер желаемой для удаления записи: '))
+            input('Номер записи для удаления: '))
         while change not in [i for i in range(1, len(data[0])+1)]:
-            print('Введеный номер отсутствует в списке вариантов')
+            print('Номер отсутствует')
             change = int(
-                input('Введите порядковый номер желаемой для удаления записи: '))
+                input('Номер для удаления записи: '))
         deleted(int(data[0][change-1]), data[1], FILENAME)
 
     
