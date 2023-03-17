@@ -13,76 +13,49 @@
 # функционал для изменения и удаления данных
 
 
-def read_data(file):
-    with open(file, 'r', encoding='utf-8') as f:
-        data = f.readlines()
-        data = list(map(lambda x: x.replace('\n', ''), data))
-        return data
-def input_data():
-    data = input('Введите Фамилию Имя Отчечство: ') + ' | '
-    data += input('Введите номер телефона: ')
-    return data
+import os
+from time import sleep
+import functions
 
-def add_data(file, data):
-    with open(file, 'a', encoding='utf-8') as f:
-        f.write('\n' + data)
 
-def write_data(file, data):
-    with open(file, 'w', encoding='utf-8') as f:
-        f.write(data)
+def main():
+    FILENAME = 'Task38/data.txt'
+    while True:
+        os.system('clear')
+        print('ВЫ ЗАПУСТИЛИ ТЕЛЕФОННЫЙ СПРАВОЧНИК \n'
+              'Введите "1" для выведения всех записей \n'
+              'Введите "2" для добавления нового контакта \n'
+              'Введите "3" для поиска информации по контакту \n'
+              'Введите "4" для изменения информации по контакту \n'
+              'Введите "5" для удаления информации по контакту \n'
+              'Введите "0" для выхода')
+        try:
+            mode = int(input('Выберите режим: '))
+            if mode == 1:
+                functions.show_data(FILENAME)
+                sleep(3)
+            elif mode == 2:
+                functions.new_data(FILENAME)
+                sleep(1)
+            elif mode == 3:
+                functions.search_data(FILENAME)
+                sleep(3)
+            elif mode == 4:
+                functions.edit_data(FILENAME)
+                sleep(2)
+            elif mode == 5:
+                functions.delete_data(FILENAME)
+                sleep(2)
+            elif mode == 0:
+                print('ДО СВИДАНИЯ!!!')
+                break
+        except ValueError:
+            print('Выбран некорректный пункт меню')
+            sleep(1)
 
-def find_data(text) -> int:
-    data = read_data('data.txt')
-    result = [x for x in data if text in x]
-    if len(set(result)) == 1:
-        result = str(*result)
-        print(f'\nНашёл: {result} \n')
-        return data.index(result)
-    elif len(set(result)) >1:
-        print('\nТаких записей много, уточните поиск\n')
-        print_data(result)
-    else:
-        print("\nНе нашел :(\n")
 
-def print_data(data):
-    print('\n'.join(data))
+if __name__ == '__main__':
+    main()
 
-def del_data(index):
-    if index:
-        data = read_data('data.txt')
-        print('Введите новые данные')
-        if input('Введите 1 для подтверждения удаления: ') == '1': 
-            data.pop(index)
-            to_write = '\n'.join(data)
-            write_data('data.txt', to_write)
-            print('Данные удалил')
-        else:
-            print('Не подтверждено')
-
-def edit_data(index):
-    if index:
-        data = read_data('data.txt')
-        data[index] = input_data()
-        to_write = '\n'.join(data)
-        write_data('data.txt', to_write)
-        print('Данные заменил')
-
-while True:
-    choice = input('\n   Прочитать данные - r \
-                   \n   Ввести данные - w \
-                   \n   Найти данные - f \
-                   \n   Изменить данные - e \
-                   \n   Удалить данные - d \
-                   \n   Выйти - 0 \
-                   \n   Выберите что надо сделать: ')
-    if choice == 'r': print_data(read_data('data.txt'))
-    elif choice == 'w': add_data('data.txt' ,input_data())
-    elif choice == 'f': index = find_data(input('Введите данные для поиска: '))
-    elif choice == 'd': del_data(find_data(input('Введите данные для поиска: ')))
-    elif choice == 'e': edit_data(find_data(input('Введите данные для поиска: ')))
-    elif choice == '0': 
-        print('Пока!')
-        break
-    else: print('Ошибка, повторите выбор: ')
 
     
