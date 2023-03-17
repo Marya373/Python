@@ -19,7 +19,7 @@ import functions
 
 
 def main():
-    FILENAME = 'Task38/data.txt'
+    FILENAME = '/Users/maryafaivisovich/Desktop/Python/Python_практика/Python/Python-2/data.txt'
     while True:
         os.system('clear')
         print('ВЫ ЗАПУСТИЛИ ТЕЛЕФОННЫЙ СПРАВОЧНИК \n'
